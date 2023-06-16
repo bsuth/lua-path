@@ -9,10 +9,11 @@ Only `path.lua` is required. The source file (`path.erde`) is written in
 
 - [`path.separator`](#pathseparator)
 - [`path.dedup(s)`](#pathdedups)
-- [`path.format(s, left, right)`](#pathformats-left-right)
-- [`path.trim(s, ltrim = true, rtrim = true)`](#pathtrims-ltrim--true-rtrim--true)
-- [`path.pad(s, lpad = true, rpad = true)`](#pathpads-lpad--true-rpad--true)
 - [`path.join(...)`](#pathjoin)
+- [`path.trim(...)`](#pathtrim)
+- [`path.pad(...)`](#pathpad)
+- [`path.lead(...)`](#pathlead)
+- [`path.trail(...)`](#pathtrail)
 - [`path.basename(s)`](#pathbasenames)
 - [`path.dirname(s)`](#pathdirnames)
 
@@ -35,40 +36,6 @@ local path = require('path')
 print(path.dedup('/////a///b')) -- /a/b
 ```
 
-### `path.format(s, left, right)`
-
-Enforce leading / trailing path separators.
-
-```lua
-local path = require('path')
-print(path.format('a/b', false, false)) -- a/b
-print(path.format('a/b', false, true)) -- a/b/
-print(path.format('a/b', true, false)) -- /a/b
-print(path.format('a/b', true, true)) -- /a/b/
-```
-
-### `path.trim(s, ltrim = true, rtrim = true)`
-
-Remove leading / trailing path separators
-
-```lua
-local path = require('path')
-print(path.trim('/a/b/')) -- a/b
-print(path.trim('/a/b/', false)) -- /a/b
-print(path.trim('/a/b/', true, false)) -- a/b/
-```
-
-### `path.pad(s, lpad = true, rpad = true)`
-
-Add leading / trailing path separators
-
-```lua
-local path = require('path')
-print(path.pad('a/b')) -- /a/b/
-print(path.pad('a/b', false)) -- a/b/
-print(path.pad('a/b', true, false)) -- /a/b
-```
-
 ### `path.join(...)`
 
 Combine multiple paths together.
@@ -76,6 +43,48 @@ Combine multiple paths together.
 ```lua
 local path = require('path')
 print(path.join('a', 'b', 'c')) -- a/b/c
+```
+
+### `path.trim(...)`
+
+Join paths and remove leading / trailing path separators.
+
+```lua
+local path = require('path')
+print(path.trim('/a/b/')) -- a/b
+print(path.trim('/a/', '/b/')) -- a/b
+```
+
+### `path.pad(...)`
+
+Join paths and add leading / trailing path separators.
+
+```lua
+local path = require('path')
+print(path.pad('a/b')) -- /a/b/
+print(path.pad('a', 'b')) -- /a/b/
+```
+
+### `path.lead(...)`
+
+Join paths, add a leading path separator, and remove trailing path separators.
+
+```lua
+local path = require('path')
+print(path.lead('a/b')) -- /a/b
+print(path.lead('/a/b/')) -- /a/b
+print(path.lead('a', 'b')) -- /a/b
+```
+
+### `path.trail(...)`
+
+Join paths, remove leading path separators, and add a trailing path separator.
+
+```lua
+local path = require('path')
+print(path.trail('a/b')) -- a/b/
+print(path.trail('/a/b/')) -- a/b/
+print(path.trail('a', 'b')) -- a/b/
 ```
 
 ### `path.basename(s)`
