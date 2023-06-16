@@ -18,228 +18,6 @@ spec('dedup', () -> {
   assert.are.equal('/a/b/c/', path.dedup('//a/b///c/'))
 })
 
-describe('format', () -> {
-  spec('start = false, end = false', () -> {
-    assert.are.equal('a', path.format('a', false, false))
-
-    assert.are.equal('a', path.format('/a', false, false))
-    assert.are.equal('a', path.format('///a', false, false))
-    assert.are.equal('a/b/c', path.format('//a/b///c', false, false))
-
-    assert.are.equal('a', path.format('a/', false, false))
-    assert.are.equal('a', path.format('a///', false, false))
-    assert.are.equal('a/b/c', path.format('a/b///c//', false, false))
-
-    assert.are.equal('a', path.format('/a/', false, false))
-    assert.are.equal('a', path.format('/a///', false, false))
-    assert.are.equal('a', path.format('///a/', false, false))
-    assert.are.equal('a/b/c', path.format('/a/b///c//', false, false))
-    assert.are.equal('a/b/c', path.format('//a/b///c/', false, false))
-  })
-
-  spec('start = true, end = false', () -> {
-    assert.are.equal('/a', path.format('a', true, false))
-
-    assert.are.equal('/a', path.format('/a', true, false))
-    assert.are.equal('/a', path.format('///a', true, false))
-    assert.are.equal('/a/b/c', path.format('//a/b///c', true, false))
-
-    assert.are.equal('/a', path.format('a/', true, false))
-    assert.are.equal('/a', path.format('a///', true, false))
-    assert.are.equal('/a/b/c', path.format('a/b///c//', true, false))
-
-    assert.are.equal('/a', path.format('/a/', true, false))
-    assert.are.equal('/a', path.format('/a///', true, false))
-    assert.are.equal('/a', path.format('///a/', true, false))
-    assert.are.equal('/a/b/c', path.format('/a/b///c//', true, false))
-    assert.are.equal('/a/b/c', path.format('//a/b///c/', true, false))
-  })
-
-  spec('start = false, end = true', () -> {
-    assert.are.equal('a/', path.format('a', false, true))
-
-    assert.are.equal('a/', path.format('/a', false, true))
-    assert.are.equal('a/', path.format('///a', false, true))
-    assert.are.equal('a/b/c/', path.format('//a/b///c', false, true))
-
-    assert.are.equal('a/', path.format('a/', false, true))
-    assert.are.equal('a/', path.format('a///', false, true))
-    assert.are.equal('a/b/c/', path.format('a/b///c//', false, true))
-
-    assert.are.equal('a/', path.format('/a/', false, true))
-    assert.are.equal('a/', path.format('/a///', false, true))
-    assert.are.equal('a/', path.format('///a/', false, true))
-    assert.are.equal('a/b/c/', path.format('/a/b///c//', false, true))
-    assert.are.equal('a/b/c/', path.format('//a/b///c/', false, true))
-  })
-
-  spec('start = true, end = true', () -> {
-    assert.are.equal('/a/', path.format('a', true, true))
-
-    assert.are.equal('/a/', path.format('/a', true, true))
-    assert.are.equal('/a/', path.format('///a', true, true))
-    assert.are.equal('/a/b/c/', path.format('//a/b///c', true, true))
-
-    assert.are.equal('/a/', path.format('a/', true, true))
-    assert.are.equal('/a/', path.format('a///', true, true))
-    assert.are.equal('/a/b/c/', path.format('a/b///c//', true, true))
-
-    assert.are.equal('/a/', path.format('/a/', true, true))
-    assert.are.equal('/a/', path.format('/a///', true, true))
-    assert.are.equal('/a/', path.format('///a/', true, true))
-    assert.are.equal('/a/b/c/', path.format('/a/b///c//', true, true))
-    assert.are.equal('/a/b/c/', path.format('//a/b///c/', true, true))
-  })
-})
-
-describe('trim', () -> {
-  spec('start = false, end = false', () -> {
-    assert.are.equal('a', path.trim('a', false, false))
-
-    assert.are.equal('/a', path.trim('/a', false, false))
-    assert.are.equal('/a', path.trim('///a', false, false))
-    assert.are.equal('/a/b/c', path.trim('//a/b///c', false, false))
-
-    assert.are.equal('a/', path.trim('a/', false, false))
-    assert.are.equal('a/', path.trim('a///', false, false))
-    assert.are.equal('a/b/c/', path.trim('a/b///c//', false, false))
-
-    assert.are.equal('/a/', path.trim('/a/', false, false))
-    assert.are.equal('/a/', path.trim('/a///', false, false))
-    assert.are.equal('/a/', path.trim('///a/', false, false))
-    assert.are.equal('/a/b/c/', path.trim('/a/b///c//', false, false))
-    assert.are.equal('/a/b/c/', path.trim('//a/b///c/', false, false))
-  })
-
-  spec('start = true, end = false', () -> {
-    assert.are.equal('a', path.trim('a', true, false))
-
-    assert.are.equal('a', path.trim('/a', true, false))
-    assert.are.equal('a', path.trim('///a', true, false))
-    assert.are.equal('a/b/c', path.trim('//a/b///c', true, false))
-
-    assert.are.equal('a/', path.trim('a/', true, false))
-    assert.are.equal('a/', path.trim('a///', true, false))
-    assert.are.equal('a/b/c/', path.trim('a/b///c//', true, false))
-
-    assert.are.equal('a/', path.trim('/a/', true, false))
-    assert.are.equal('a/', path.trim('/a///', true, false))
-    assert.are.equal('a/', path.trim('///a/', true, false))
-    assert.are.equal('a/b/c/', path.trim('/a/b///c//', true, false))
-    assert.are.equal('a/b/c/', path.trim('//a/b///c/', true, false))
-  })
-
-  spec('start = false, end = true', () -> {
-    assert.are.equal('a', path.trim('a', false, true))
-
-    assert.are.equal('/a', path.trim('/a', false, true))
-    assert.are.equal('/a', path.trim('///a', false, true))
-    assert.are.equal('/a/b/c', path.trim('//a/b///c', false, true))
-
-    assert.are.equal('a', path.trim('a/', false, true))
-    assert.are.equal('a', path.trim('a///', false, true))
-    assert.are.equal('a/b/c', path.trim('a/b///c//', false, true))
-
-    assert.are.equal('/a', path.trim('/a/', false, true))
-    assert.are.equal('/a', path.trim('/a///', false, true))
-    assert.are.equal('/a', path.trim('///a/', false, true))
-    assert.are.equal('/a/b/c', path.trim('/a/b///c//', false, true))
-    assert.are.equal('/a/b/c', path.trim('//a/b///c/', false, true))
-  })
-
-  spec('start = true, end = true', () -> {
-    assert.are.equal('a', path.trim('a', true, true))
-
-    assert.are.equal('a', path.trim('/a', true, true))
-    assert.are.equal('a', path.trim('///a', true, true))
-    assert.are.equal('a/b/c', path.trim('//a/b///c', true, true))
-
-    assert.are.equal('a', path.trim('a/', true, true))
-    assert.are.equal('a', path.trim('a///', true, true))
-    assert.are.equal('a/b/c', path.trim('a/b///c//', true, true))
-
-    assert.are.equal('a', path.trim('/a/', true, true))
-    assert.are.equal('a', path.trim('/a///', true, true))
-    assert.are.equal('a', path.trim('///a/', true, true))
-    assert.are.equal('a/b/c', path.trim('/a/b///c//', true, true))
-    assert.are.equal('a/b/c', path.trim('//a/b///c/', true, true))
-  })
-})
-
-describe('pad', () -> {
-  spec('start = false, end = false', () -> {
-    assert.are.equal('a', path.pad('a', false, false))
-
-    assert.are.equal('/a', path.pad('/a', false, false))
-    assert.are.equal('/a', path.pad('///a', false, false))
-    assert.are.equal('/a/b/c', path.pad('//a/b///c', false, false))
-
-    assert.are.equal('a/', path.pad('a/', false, false))
-    assert.are.equal('a/', path.pad('a///', false, false))
-    assert.are.equal('a/b/c/', path.pad('a/b///c//', false, false))
-
-    assert.are.equal('/a/', path.pad('/a/', false, false))
-    assert.are.equal('/a/', path.pad('/a///', false, false))
-    assert.are.equal('/a/', path.pad('///a/', false, false))
-    assert.are.equal('/a/b/c/', path.pad('/a/b///c//', false, false))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c/', false, false))
-  })
-
-  spec('start = true, end = false', () -> {
-    assert.are.equal('/a', path.pad('a', true, false))
-
-    assert.are.equal('/a', path.pad('/a', true, false))
-    assert.are.equal('/a', path.pad('///a', true, false))
-    assert.are.equal('/a/b/c', path.pad('//a/b///c', true, false))
-
-    assert.are.equal('/a/', path.pad('a/', true, false))
-    assert.are.equal('/a/', path.pad('a///', true, false))
-    assert.are.equal('/a/b/c/', path.pad('a/b///c//', true, false))
-
-    assert.are.equal('/a/', path.pad('/a/', true, false))
-    assert.are.equal('/a/', path.pad('/a///', true, false))
-    assert.are.equal('/a/', path.pad('///a/', true, false))
-    assert.are.equal('/a/b/c/', path.pad('/a/b///c//', true, false))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c/', true, false))
-  })
-
-  spec('start = false, end = true', () -> {
-    assert.are.equal('a/', path.pad('a', false, true))
-
-    assert.are.equal('/a/', path.pad('/a', false, true))
-    assert.are.equal('/a/', path.pad('///a', false, true))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c', false, true))
-
-    assert.are.equal('a/', path.pad('a/', false, true))
-    assert.are.equal('a/', path.pad('a///', false, true))
-    assert.are.equal('a/b/c/', path.pad('a/b///c//', false, true))
-
-    assert.are.equal('/a/', path.pad('/a/', false, true))
-    assert.are.equal('/a/', path.pad('/a///', false, true))
-    assert.are.equal('/a/', path.pad('///a/', false, true))
-    assert.are.equal('/a/b/c/', path.pad('/a/b///c//', false, true))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c/', false, true))
-  })
-
-  spec('start = true, end = true', () -> {
-    assert.are.equal('/a/', path.pad('a', true, true))
-
-    assert.are.equal('/a/', path.pad('/a', true, true))
-    assert.are.equal('/a/', path.pad('///a', true, true))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c', true, true))
-
-    assert.are.equal('/a/', path.pad('a/', true, true))
-    assert.are.equal('/a/', path.pad('a///', true, true))
-    assert.are.equal('/a/b/c/', path.pad('a/b///c//', true, true))
-
-    assert.are.equal('/a/', path.pad('/a/', true, true))
-    assert.are.equal('/a/', path.pad('/a///', true, true))
-    assert.are.equal('/a/', path.pad('///a/', true, true))
-    assert.are.equal('/a/b/c/', path.pad('/a/b///c//', true, true))
-    assert.are.equal('/a/b/c/', path.pad('//a/b///c/', true, true))
-  })
-})
-
 spec('join', () -> {
   assert.are.equal('', path.join())
 
@@ -269,6 +47,86 @@ spec('join', () -> {
   assert.are.equal('/a/b/', path.join('/a/', '/b/'))
 
   assert.are.equal('a/b/c', path.join('a', '//b/', '//c'))
+})
+
+spec('trim', () -> {
+  assert.are.equal('a', path.trim('a'))
+
+  assert.are.equal('a', path.trim('/a'))
+  assert.are.equal('a', path.trim('///a'))
+  assert.are.equal('a/b/c', path.trim('//a/b///c'))
+
+  assert.are.equal('a', path.trim('a/'))
+  assert.are.equal('a', path.trim('a///'))
+  assert.are.equal('a/b/c', path.trim('a/b///c//'))
+
+  assert.are.equal('a', path.trim('/a/'))
+  assert.are.equal('a', path.trim('/a///'))
+  assert.are.equal('a', path.trim('///a/'))
+  assert.are.equal('a/b/c', path.trim('/a/b///c//'))
+  assert.are.equal('a/b/c', path.trim('//a/b///c/'))
+
+  assert.are.equal('a/b/c', path.trim('a', 'b', 'c'))
+})
+
+spec('pad', () -> {
+  assert.are.equal('/a/', path.pad('a'))
+
+  assert.are.equal('/a/', path.pad('/a'))
+  assert.are.equal('/a/', path.pad('///a'))
+  assert.are.equal('/a/b/c/', path.pad('//a/b///c'))
+
+  assert.are.equal('/a/', path.pad('a/'))
+  assert.are.equal('/a/', path.pad('a///'))
+  assert.are.equal('/a/b/c/', path.pad('a/b///c//'))
+
+  assert.are.equal('/a/', path.pad('/a/'))
+  assert.are.equal('/a/', path.pad('/a///'))
+  assert.are.equal('/a/', path.pad('///a/'))
+  assert.are.equal('/a/b/c/', path.pad('/a/b///c//'))
+  assert.are.equal('/a/b/c/', path.pad('//a/b///c/'))
+
+  assert.are.equal('/a/b/c/', path.pad('a', 'b', 'c'))
+})
+
+spec('lead', () -> {
+  assert.are.equal('/a', path.lead('a'))
+
+  assert.are.equal('/a', path.lead('/a'))
+  assert.are.equal('/a', path.lead('///a'))
+  assert.are.equal('/a/b/c', path.lead('//a/b///c'))
+
+  assert.are.equal('/a', path.lead('a/'))
+  assert.are.equal('/a', path.lead('a///'))
+  assert.are.equal('/a/b/c', path.lead('a/b///c//'))
+
+  assert.are.equal('/a', path.lead('/a/'))
+  assert.are.equal('/a', path.lead('/a///'))
+  assert.are.equal('/a', path.lead('///a/'))
+  assert.are.equal('/a/b/c', path.lead('/a/b///c//'))
+  assert.are.equal('/a/b/c', path.lead('//a/b///c/'))
+
+  assert.are.equal('/a/b/c', path.lead('a', 'b', 'c'))
+})
+
+spec('trail', () -> {
+  assert.are.equal('a/', path.trail('a'))
+
+  assert.are.equal('a/', path.trail('/a'))
+  assert.are.equal('a/', path.trail('///a'))
+  assert.are.equal('a/b/c/', path.trail('//a/b///c'))
+
+  assert.are.equal('a/', path.trail('a/'))
+  assert.are.equal('a/', path.trail('a///'))
+  assert.are.equal('a/b/c/', path.trail('a/b///c//'))
+
+  assert.are.equal('a/', path.trail('/a/'))
+  assert.are.equal('a/', path.trail('/a///'))
+  assert.are.equal('a/', path.trail('///a/'))
+  assert.are.equal('a/b/c/', path.trail('/a/b///c//'))
+  assert.are.equal('a/b/c/', path.trail('//a/b///c/'))
+
+  assert.are.equal('a/b/c/', path.trail('a', 'b', 'c'))
 })
 
 spec('basename', () -> {
