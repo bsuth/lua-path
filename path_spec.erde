@@ -20,8 +20,8 @@ spec('dedup', () -> {
 
 spec('join', () -> {
   assert.are.equal('', path.join())
-
   assert.are.equal('a', path.join('a'))
+
   assert.are.equal('/a', path.join('/a'))
   assert.are.equal('a/', path.join('a/'))
   assert.are.equal('/a/', path.join('/a/'))
@@ -50,6 +50,7 @@ spec('join', () -> {
 })
 
 spec('trim', () -> {
+  assert.are.equal('', path.trim())
   assert.are.equal('a', path.trim('a'))
 
   assert.are.equal('a', path.trim('/a'))
@@ -70,6 +71,7 @@ spec('trim', () -> {
 })
 
 spec('pad', () -> {
+  assert.are.equal('/', path.pad())
   assert.are.equal('/a/', path.pad('a'))
 
   assert.are.equal('/a/', path.pad('/a'))
@@ -90,6 +92,7 @@ spec('pad', () -> {
 })
 
 spec('lead', () -> {
+  assert.are.equal('/', path.lead())
   assert.are.equal('/a', path.lead('a'))
 
   assert.are.equal('/a', path.lead('/a'))
@@ -110,6 +113,7 @@ spec('lead', () -> {
 })
 
 spec('trail', () -> {
+  assert.are.equal('/', path.trail())
   assert.are.equal('a/', path.trail('a'))
 
   assert.are.equal('a/', path.trail('/a'))

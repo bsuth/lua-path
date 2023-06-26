@@ -16,7 +16,7 @@ local function trim(...)
 end
 _MODULE.trim = trim
 local function pad(...)
-	return separator .. trim(...) .. separator
+	return dedup(separator .. join(...) .. separator)
 end
 _MODULE.pad = pad
 local function lead(...)

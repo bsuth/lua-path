@@ -16,7 +16,7 @@ module function trim(...) {
 }
 
 module function pad(...) {
-  return separator .. trim(...) .. separator
+  return dedup(separator .. join(...) .. separator)
 }
 
 module function lead(...) {
