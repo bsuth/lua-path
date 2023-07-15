@@ -2,7 +2,8 @@ local _MODULE = {}
 local separator = package.config:sub(1, 1)
 _MODULE.separator = separator
 local function dedup(s)
-	return s:gsub(separator .. "+", separator)
+	local deduped = s:gsub(separator .. "+", separator)
+	return deduped
 end
 _MODULE.dedup = dedup
 local function join(...)
@@ -12,7 +13,8 @@ local function join(...)
 end
 _MODULE.join = join
 local function trim(...)
-	return join(...):gsub(("^" .. tostring(separator) .. "+"), ""):gsub((tostring(separator) .. "+$"), "")
+	local trimmed = join(...):gsub(("^" .. tostring(separator) .. "+"), ""):gsub((tostring(separator) .. "+$"), "")
+	return trimmed
 end
 _MODULE.trim = trim
 local function pad(...)
@@ -32,7 +34,8 @@ local function basename(s)
 end
 _MODULE.basename = basename
 local function dirname(s)
-	return s:gsub(("[^" .. tostring(separator) .. "]*$"), "")
+	local name = s:gsub(("[^" .. tostring(separator) .. "]*$"), "")
+	return name
 end
 _MODULE.dirname = dirname
 return _MODULE

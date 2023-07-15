@@ -4,7 +4,9 @@
 module separator = package.config:sub(1, 1)
 
 module function dedup(s) {
-  return (s:gsub(separator .. '+', separator))
+  -- Store in local variable to ensure we return only 1 (stylua will remove wrapping parens)
+  local deduped = s:gsub(separator .. '+', separator)
+  return deduped
 }
 
 module function join(...) {
@@ -12,7 +14,9 @@ module function join(...) {
 }
 
 module function trim(...) {
-  return (join(...):gsub("^{separator}+", ''):gsub("{separator}+$", ''))
+  -- Store in local variable to ensure we return only 1 (stylua will remove wrapping parens)
+  local trimmed = join(...):gsub("^{separator}+", ''):gsub("{separator}+$", '')
+  return trimmed
 }
 
 module function pad(...) {
@@ -32,5 +36,7 @@ module function basename(s) {
 }
 
 module function dirname(s) {
-  return (s:gsub("[^{separator}]*$", ''))
+  -- Store in local variable to ensure we return only 1 (stylua will remove wrapping parens)
+  local name = s:gsub("[^{separator}]*$", '')
+  return name
 }
