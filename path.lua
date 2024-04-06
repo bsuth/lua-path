@@ -1,43 +1,43 @@
-local _MODULE = {}
-local separator = package.config:sub(1, 1)
-_MODULE.separator = separator
-local function dedup(s)
-	local deduped = s:gsub(separator .. "+", separator)
-	return deduped
+local M = {}
+
+-- Get the current platform path separator. Note that while this is undocumented
+-- in the Lua 5.1 manual, it is indeed supported in 5.1+.
+-- https://www.lua.org/manual/5.3/manual.html#pdf-package.config
+M.separator = package.config:sub(1, 1)
+
+function M.dedup(s)
+  -- Wrap in parentheses to ensure we return only 1 value.
+  return (s:gsub(M.separator .. '+', M.separator))
 end
-_MODULE.dedup = dedup
-local function join(...)
-	return dedup(table.concat({
-		...,
-	}, separator))
+
+function M.join(...)
+  return M.dedup(table.concat({ ... }, M.separator))
 end
-_MODULE.join = join
-local function trim(...)
-	local trimmed = join(...):gsub(("^" .. tostring(separator) .. "+"), ""):gsub((tostring(separator) .. "+$"), "")
-	return trimmed
+
+function M.trim(...)
+  -- Wrap in parentheses to ensure we return only 1 value.
+  return (M.join(...):gsub('^' .. M.separator .. '+', ''):gsub(M.separator .. '+$', ''))
 end
-_MODULE.trim = trim
-local function pad(...)
-	return dedup(separator .. join(...) .. separator)
+
+function M.pad(...)
+  return M.dedup(M.separator .. M.join(...) .. M.separator)
 end
-_MODULE.pad = pad
-local function lead(...)
-	return separator .. trim(...)
+
+function M.lead(...)
+  return M.separator .. M.trim(...)
 end
-_MODULE.lead = lead
-local function trail(...)
-	return trim(...) .. separator
+
+function M.trail(...)
+  return M.trim(...) .. M.separator
 end
-_MODULE.trail = trail
-local function basename(s)
-	return s:match(("[^" .. tostring(separator) .. "]*$"))
+
+function M.basename(s)
+  return s:match('[^' .. M.separator .. ']*$')
 end
-_MODULE.basename = basename
-local function dirname(s)
-	local name = s:gsub(("[^" .. tostring(separator) .. "]*$"), "")
-	return name
+
+function M.dirname(s)
+  -- Wrap in parentheses to ensure we return only 1 value.
+  return (s:gsub('[^' .. M.separator .. ']*$', ''))
 end
-_MODULE.dirname = dirname
-return _MODULE
--- Compiled with Erde 0.6.0-1
--- __ERDE_COMPILED__
+
+return M

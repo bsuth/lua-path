@@ -2,9 +2,6 @@
 
 Helper functions for manipulating file paths. Works with Lua 5.1+ and LuaJIT.
 
-Only `path.lua` is required. The source file (`path.erde`) is written in
-[Erde](https://erde-lang.github.io/) and compiled to Lua.
-
 ## API
 
 - [`path.separator`](#pathseparator)
